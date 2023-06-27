@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'java-library'
+}
+
+group = 'online.flowerinsnow'
+version = '1.0.0'
+
+repositories {
+    maven {
+        url 'https://maven.aliyun.com/repository/central'
+    }
+
+    maven {
+        url 'https://repo.flowerinsnow.online:10443/repository/maven-public/'
+    }
+}
+
+configurations {
+    embed
+    api.extendsFrom(embed)
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    implementation 'org.jetbrains:annotations:24.0.1'
+    embed 'cc.carm.lib:easyconfiguration-hocon:3.6.0_HOCON_EXT_1.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    from("LICENSE")
+    from configurations.embed.asFileTree.files.collect {
+        it.isDirectory() ? it : zipTree(it)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    options.encoding = 'UTF-8'
+}
