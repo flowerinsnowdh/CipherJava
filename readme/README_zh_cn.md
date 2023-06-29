@@ -7,29 +7,28 @@
 # 用法
 <details open="open">
 
-|       参数名       | 简写 |                 参数类型                  |               参数说明               |
-|:---------------:|:--:|:-------------------------------------:|:--------------------------------:|
-|    --encrypt    | -e |             [Void](#Void)             |               指定加密               |
-|    --decrypt    | -d |             [Void](#Void)             |               指定解密               |
-|    --newkey     | -n |             [Void](#Void)             |             指定随机生成密钥             |
-|     --seed      |    |           [String](#String)           |      指定生成密钥的种子；若不指定，将完全随机。       |
-|    --length     | -l |          [Integer](#Integer)          |       指定生成密钥长度[\[1\]](#1)        |
-|    --string     | -s |           [String](#String)           |      指定字符串作为[\[输入源\]](#输入源)      |
-|     --file      | -f |             [Path](#Path)             |      指定文件作为[\[输入源\]](#输入源)       |
-|   --algorithm   | -a |  [Enum&lt;Algorithm&gt;](#Algorithm)  |        指定加密算法。若不指定，默认AES         |
-|   --keybase64   |    |           [Base64](#Base64)           |      指定格式为Base64的密钥，必须是合法密钥      |
-|    --keyhex     |    |              [HEX](#HEX)              |     指定格式为十六进制字符串的密钥，必须是合法密钥      |
-|      --key      | -k |           [String](#String)           |        指定字符串密钥[\[2\]](#2)        |
-| --keyfilebase64 |    |             [Path](#Path)             |     指定格式为Base64的密钥文件，必须是合法密钥     |
-|  --keyfilehex   |    |             [Path](#Path)             |    指定格式为十六进制字符串的密钥文件，必须是合法密钥     |
-|    --keyfile    |    |             [Path](#Path)             |      指定格式为二进制的密钥文件，必须是合法密钥       |
-|    --output     | -o |             [Path](#Path)             | 指定文件作为输出路径[\[3\]](#3)[\[6\]](#6) |
-| --publicoutput  |    |             [Path](#Path)             |     指定文件作为公钥输出路径[\[6\]](#6)      |
-|  --outputtype   | -t | [Enum&lt;OutputType&gt;](#OutputType) |       指定输出格式。若不指定，默认base64       |
-| --inputcharset  |    |           [String](#String)           | 指定[\[输入源\]](#输入源)编码。若不指定，默认UTF-8 |
-| --outputcharset |    |           [String](#String)           |       指定输出编码。若不指定，默认UTF-8        |
-|    --cipher     | -c |           [String](#String)           |        指定加密算法。[\[4\]](#4)        |
-|   --warpping    | -w |             [Void](#Void)             |       指定采用密钥封装法[\[5\]](#5)       |
+|       参数名       | 简写 |                参数类型                 |                        参数说明                        |
+|:---------------:|:--:|:-----------------------------------:|:--------------------------------------------------:|
+|    --encrypt    | -e |            [Void](#Void)            |                        指定加密                        |
+|    --decrypt    | -d |            [Void](#Void)            |                        指定解密                        |
+|    --newkey     | -n |            [Void](#Void)            |                      指定随机生成密钥                      |
+|     --seed      |    |          [String](#String)          |               指定生成密钥的种子；若不指定，将完全随机。                |
+|    --length     | -l |         [Integer](#Integer)         |                指定生成密钥长度[\[1\]](#1)                 |
+|    --string     | -s |          [String](#String)          |               指定字符串作为[\[输入源\]](#输入源)               |
+|     --file      | -f |            [Path](#Path)            |               指定文件作为[\[输入源\]](#输入源)                |
+|   --algorithm   | -a | [Enum&lt;Algorithm&gt;](#Algorithm) |                 指定加密算法。若不指定，默认AES                  |
+|   --keybase64   |    |          [Base64](#Base64)          |               指定格式为Base64的密钥，必须是合法密钥               |
+|    --keyhex     |    |             [HEX](#HEX)             |              指定格式为十六进制字符串的密钥，必须是合法密钥               |
+|      --key      | -k |          [String](#String)          |                 指定字符串密钥[\[2\]](#2)                 |
+| --keyfilebase64 |    |            [Path](#Path)            |              指定格式为Base64的密钥文件，必须是合法密钥              |
+|  --keyfilehex   |    |            [Path](#Path)            |             指定格式为十六进制字符串的密钥文件，必须是合法密钥              |
+|    --keyfile    |    |            [Path](#Path)            |               指定格式为二进制的密钥文件，必须是合法密钥                |
+|    --output     | -o |            [Path](#Path)            |          指定文件作为输出路径[\[3\]](#3)[\[6\]](#6)          |
+| --publicoutput  |    |            [Path](#Path)            |              指定文件作为公钥输出路径[\[6\]](#6)               |
+|   --datatype    | -t |  [Enum&lt;DataType&gt;](#DataType)  | 加密模式下，指定输出格式；解密模式下，指定输入格式。若不指定，默认base64。只在字符串模式下生效 |
+|    --charset    |    |          [String](#String)          |          指定[\[输入源\]](#输入源)编码。若不指定，默认UTF-8          |
+|    --cipher     | -c |          [String](#String)          |                 指定加密算法。[\[4\]](#4)                 |
+|   --warpping    | -w |            [Void](#Void)            |                指定采用密钥封装法[\[5\]](#5)                |
 
 ## 1
 单位：字节。**注意不是位**
@@ -169,7 +168,7 @@
 - rsa
 - ec
 
-### OutputType
+### DataType
 - base64
 - hex
 - bin
@@ -202,17 +201,20 @@
 | &lt;b:white&gt;  | 白色 |   背景色   |
 
 # 退出代码
-|     代码     | 十进制 |      造成原因      |
-|:----------:|:---:|:--------------:|
-| 0x00000000 |  0  |      一切成功      |
-| 0x80000001 | -1  |    语言文件读取失败    |
-| 0x80000002 | -2  |      用法错误      |
-| 0x80000003 | -3  |      参数错误      |
-| 0x80000004 | -4  | 读取密钥时出现了 IO 异常 |
-| 0x80000005 | -5  | 读取源时出现了 IO 异常  |
-| 0x80000006 | -6  | 写入输出时出现了 IO 异常 |
-| 0x80000006 | -7  | 写入公钥时出现了 IO 异常 |
-| 0x80000007 | -8  |      密钥无效      |
+|     代码     | 十进制 |       造成原因        |
+|:----------:|:---:|:-----------------:|
+| 0x00000000 |  0  |       一切成功        |
+| 0x80000001 | -1  |     语言文件读取失败      |
+| 0x80000002 | -2  |       用法错误        |
+| 0x80000003 | -3  |       参数错误        |
+| 0x80000004 | -4  |  读取密钥时出现了 IO 异常   |
+| 0x80000005 | -5  |   读取源时出现了 IO 异常   |
+| 0x80000006 | -6  |  写入输出时出现了 IO 异常   |
+| 0x80000007 | -7  |  写入公钥时出现了 IO 异常   |
+| 0x80000008 | -8  |       密钥无效        |
+| 0x80000009 | -9  |     不支持的算法或填充     |
+| 0x8000000A | -10 | 当前密钥/填充组合无法解密这段内容 |
+| 0x8000000B | -11 |      输入密文不合法      |
 
 # 第三方开源引用
 [EasyConfiguration](https://github.com/CarmJos/EasyConfiguration) By [CarmJos](https://github.com/CarmJos) ([LGPL-3.0 license](https://github.com/CarmJos/EasyConfiguration/blob/master/LICENSE))

@@ -38,6 +38,10 @@ jar {
     from configurations.embed.asFileTree.files.collect {
         it.isDirectory() ? it : zipTree(it)
     }
+
+    manifest {
+        attributes 'Main-Class': 'online.flowerinsnow.cipherjava.CipherJava'
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {

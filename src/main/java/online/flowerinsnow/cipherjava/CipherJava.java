@@ -10,6 +10,8 @@ import online.flowerinsnow.cipherjava.parameter.Parameters;
 import online.flowerinsnow.cipherjava.parameter.type.Algorithm;
 import online.flowerinsnow.cipherjava.parameter.type.DataType;
 import online.flowerinsnow.cipherjava.parameter.type.Unit;
+import online.flowerinsnow.cipherjava.task.TaskDecrypt;
+import online.flowerinsnow.cipherjava.task.TaskEncrypt;
 import online.flowerinsnow.cipherjava.task.TaskNewKey;
 import online.flowerinsnow.cipherjava.util.ConditionUtils;
 import online.flowerinsnow.cipherjava.util.FileUtils;
@@ -135,19 +137,14 @@ public class CipherJava {
                     Parameters.PUBLIC_OUTPUT.setValue(Paths.get(args[i + 1]));
                     i++;
                 }
-                case "--outputtype", "-t" -> {
+                case "--datatype", "-t" -> {
                     validateRequireNextArgument(args, i);
-                    Parameters.OUTPUT_TYPE.setValue(enumByName(DataType.BY_NAME, "--outputtype", args[i + 1]));
+                    Parameters.DATA_TYPE.setValue(enumByName(DataType.BY_NAME, "--datatype", args[i + 1]));
                     i++;
                 }
-                case "--inputcharset" -> {
+                case "--charset" -> {
                     validateRequireNextArgument(args, i);
-                    Parameters.INPUT_CHARSET.setValue(args[i + 1]);
-                    i++;
-                }
-                case "--outputcharset" -> {
-                    validateRequireNextArgument(args, i);
-                    Parameters.OUTPUT_CHARSET.setValue(args[i + 1]);
+                    Parameters.CHARSET.setValue(args[i + 1]);
                     i++;
                 }
                 case "--cipher", "-c" -> {
@@ -169,6 +166,9 @@ public class CipherJava {
                 default -> throw new UnexceptedException();
             }
         }
+        if (Parameters.CIPHER.getValue() == null) {
+            Parameters.CIPHER.setValue(Parameters.ALGORITHM.getValue().cipherName);
+        }
     }
 
     private static int runTask() {
@@ -177,7 +177,14 @@ public class CipherJava {
             Language.printf(System.err, Language.Error.Parameters.RUN_MODE_COUNT);
             return -2;
         }
-        // TODO encrypt/decrypt
+
+        if (Parameters.ENCRYPT.getValue() == Unit.UNIT) {
+            return new TaskEncrypt().runTask();
+        }
+
+        if (Parameters.DECRYPT.getValue() == Unit.UNIT) {
+            return new TaskDecrypt().runTask();
+        }
 
         if (Parameters.NEW_KEY.getValue() == Unit.UNIT) {
             return new TaskNewKey().runTask();

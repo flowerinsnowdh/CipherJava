@@ -30,12 +30,11 @@ public interface Parameters {
 
     Parameter<Path> OUTPUT = new Parameter<>();
     Parameter<Path> PUBLIC_OUTPUT = new Parameter<>();
-    Parameter<DataType> OUTPUT_TYPE = new Parameter<>(DataType.BASE64);
+    Parameter<DataType> DATA_TYPE = new Parameter<>(DataType.BASE64);
 
-    Parameter<String> INPUT_CHARSET = new Parameter<>("UTF-8");
-    Parameter<String> OUTPUT_CHARSET = new Parameter<>("UTF-8");
+    Parameter<String> CHARSET = new Parameter<>("UTF-8");
 
-    Parameter<String> CIPHER = new Parameter<>("CIPHER");
+    Parameter<String> CIPHER = new Parameter<>();
 
     Parameter<Unit> WRAPPING = new Parameter<>();
 }
