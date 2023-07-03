@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'online.flowerinsnow'
-version = '1.0.0'
+version = '1.0.1'
 
 repositories {
     maven {
@@ -27,6 +27,7 @@ dependencies {
 
     implementation 'org.jetbrains:annotations:24.0.1'
     embed 'cc.carm.lib:easyconfiguration-hocon:3.6.0_HOCON_EXT_1.0'
+    embed 'org.bouncycastle:bcprov-jdk15on:1.70'
 }
 
 test {

@@ -15,9 +15,11 @@ import online.flowerinsnow.cipherjava.task.TaskEncrypt;
 import online.flowerinsnow.cipherjava.task.TaskNewKey;
 import online.flowerinsnow.cipherjava.util.ConditionUtils;
 import online.flowerinsnow.cipherjava.util.FileUtils;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Paths;
+import java.security.Security;
 import java.util.Locale;
 import java.util.Map;
 
@@ -31,6 +33,8 @@ public class CipherJava {
             e.printStackTrace();
             System.exit(-1);
         }
+
+        Security.addProvider(new BouncyCastleProvider());
 
         try {
             parseArguments(args);

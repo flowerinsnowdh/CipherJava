@@ -33,17 +33,9 @@ import java.security.SecureRandom;
 public class TaskEncrypt implements ITask {
     @Override
     public int runTask() {
-        // --key --keybase64 --keyhex --keyfile --keyfilebase64 --keyfilehex 同时最多存在一个
-        if (!ConditionUtils.timesMatch(0, 1, () -> Parameters.KEY.getValue() != null, () -> Parameters.KEY_BASE64.getValue() != null, () -> Parameters.KEY_HEX.getValue() != null,
-                () -> Parameters.KEY_FILE.getValue() != null, () -> Parameters.KEY_FILE_BASE64.getValue() != null, () -> Parameters.KEY_FILE_HEX.getValue() != null)) {
-            Language.printf(System.err, Language.Error.Parameters.KEYS_COUNT);
-            return -2;
-        }
-
-        // --string --file 必须同时存在一个车且最多存在一个
-        if (!ConditionUtils.oneMatch(() -> Parameters.STRING.getValue() != null,() -> Parameters.FILE.getValue() != null)) {
-            Language.printf(System.err, Language.Error.Parameters.SOURCE_COUNT);
-            return -2;
+        int exitCode = ValidateUtils.checkEncryptDecryptOneMatchWithPrint();
+        if (exitCode != 0) {
+            return exitCode;
         }
 
         Algorithm algorithm = Parameters.ALGORITHM.getValue(); // 算法
